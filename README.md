@@ -19,4 +19,5 @@ This is a simple Todo API built with Graphene (graphQL framework for python) and
 * Open a new terminal and cd into ``` todo-Graphql ``` and run ```json-server --watch db.json```.
 * If you decide to the change port number for the json web server, use ```json-server --watch db.json --port (new port number)```.
 * Then export the new URL as shown previously.
+* To test the application enter in your browser this url ```http://localhost:5000/graphql```
 
