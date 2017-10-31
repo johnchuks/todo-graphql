@@ -1,0 +1,13 @@
+{
+  "todoitems": [
+    { "id": 1, "description": "HTML I", "status_done": true, "todoId": 1},
+    { "id": 2, "description": "REACT I", "status_done": false, "todoId": 1 },
+    { "id": 3, "description": "REACT II", "status_done": false, "todoId": 2 }
+  ],
+
+  "todos": [
+    { "id": 1, "name": "Programming 101" },
+    { "id": 2, "name": "Programming 102"}
+  ]
+
+}
