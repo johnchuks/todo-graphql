@@ -8,6 +8,7 @@ This is a simple Todo API built with Graphene (graphQL framework for python) and
 
 #### Getting Started ####
 * Clone the repository with ``` git clone https://github.com/johnchuks/todo-graphql ```
+* Install json web server globally like so ```npm install json-server -g```.
 * Enter into the directory and `npm install` to install the javascript dependencies
 * Create a virtual environment like so ``` virtualenv (name of env) ```
 * Activate the virtual environment with ``` source (name of env)/bin/activate ```
