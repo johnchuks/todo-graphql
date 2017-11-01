@@ -10,7 +10,7 @@ class TodoItem(graphene.ObjectType):
     todoId = graphene.Int()
     todo = graphene.Field(lambda: Todo)
 
-    def resolve_todo(self, info):
+    def resolve_todo(self, args, context, info):
         """Resolve function to get all todo"""
         response = requests.get(os.environ['DB_URL'] + '/todos/%i' % self.todoId).json()
         data = Todo(id=response['id'], name=response['name'])
@@ -22,7 +22,7 @@ class Todo(graphene.ObjectType):
     name = graphene.String(required=True)
     todo_items = graphene.List(lambda: TodoItem)
 
-    def resolve_todo_items(self, info):
+    def resolve_todo_items(self, args, context, info):
         """Resolve function to get todo items for a particular todolist"""
         response = requests.get(os.environ['DB_URL'] + '/todos/%i/todoitems' % self.id)
         data = [TodoItem(id=todo['id'], description=todo['description'], status_done=todo['status_done']) for todo in
@@ -36,31 +36,28 @@ class Query(graphene.ObjectType):
     todo = graphene.Field(Todo, id=graphene.Int())
     todo_item = graphene.Field(TodoItem, id=graphene.Int())
 
-    def resolve_todos(self, info):
+    def resolve_todos(self, args, context, info):
         """Resolve function to get all todo lists available"""
         response = requests.get(os.environ['DB_URL'] + '/todos').json()
         data = [Todo(id=todo['id'], name=todo['name']) for todo in response]
         return data
 
-
-    def resolve_todo_items(self, info):
+    def resolve_todo_items(self, args, context, info):
         """Resolve function to get all todo items available"""
         response = requests.get(os.environ['DB_URL'] + '/todoitems').json()
         data = [TodoItem(id=todo['id'], description=todo['description'], todoId=todo['todoId'],
                          status_done=todo['status_done']) for todo in response]
         return data
 
-
-    def resolve_todo(self, info, id):
+    def resolve_todo(self, args, context, info):
         """Resolve function to get a particular todo"""
-        response = requests.get(os.environ['DB_URL'] + '/todos/%i' % id).json()
+        response = requests.get(os.environ['DB_URL'] + '/todos/%i' % args['id']).json()
         data = Todo(id=response['id'], name=response['name'])
         return data
 
-
-    def resolve_todo_item(self, info, id):
+    def resolve_todo_item(self, args, context, info):
         """Resolve function to get a todo item"""
-        response = requests.get(os.environ['DB_URL'] + '/todoitems/%i' % id).json()
+        response = requests.get(os.environ['DB_URL'] + '/todoitems/%i' % args['id']).json()
         data = TodoItem(id=response['id'], description=response['description'], status_done=response['status_done'],
                         todoId=response['todoId'])
         return data
